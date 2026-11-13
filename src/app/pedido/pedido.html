@@ -1,163 +1,318 @@
+
 <div class="pedido-page">
 
-  <!-- HEADER -->
   <header class="pedido-header">
-
-    <div class="brand">
+    <a routerLink="/menu" class="brand">
       <span class="brand-name">EMBER</span>
       <span class="brand-subtitle">GRILL & BURGERS</span>
-    </div>
+    </a>
 
-    <button class="back-menu" routerLink="/menu">
-      VOLVER AL MENÚ
-    </button>
-
+    <a routerLink="/menu" class="back-button">
+      <span>←</span> REGRESAR AL MENÚ
+    </a>
   </header>
 
+  <main class="pedido-container">
 
-  <!-- TITULO -->
-  <section class="pedido-title">
-
-    <p class="small-title">TU SELECCIÓN</p>
-
-    <h1>MI <span>PEDIDO</span></h1>
-
-    <p>
-      Revisa tu pedido antes de continuar.
-    </p>
-
-  </section>
-
-
-  <!-- CONTENIDO -->
-  <main class="pedido-content">
-
-    <!-- PRODUCTOS -->
-    <section class="products">
-
-      <article class="product">
-
-        <div class="product-image">
-          <img src="/images/hambur.jpg" alt="Ember Classic">
-        </div>
-
-        <div class="product-info">
-
-          <div>
-            <p class="category">SIGNATURE</p>
-            <h2>EMBER CLASSIC</h2>
-
-            <p class="details">
-              Carne de res, queso cheddar,
-              lechuga, tomate y salsa especial.
-            </p>
-          </div>
-
-          <div class="product-bottom">
-
-            <span class="quantity">
-              CANT. 1
-            </span>
-
-            <span class="product-price">
-              $149
-            </span>
-
-          </div>
-
-        </div>
-
-      </article>
-
-
-      <article class="product">
-
-        <div class="product-image">
-          <img src="/images/hambur.jpg" alt="Golden Burger">
-        </div>
-
-        <div class="product-info">
-
-          <div>
-            <p class="category">PREMIUM</p>
-            <h2>GOLDEN BURGER</h2>
-
-            <p class="details">
-              Carne de res, queso gouda,
-              cebolla caramelizada y salsa de la casa.
-            </p>
-          </div>
-
-          <div class="product-bottom">
-
-            <span class="quantity">
-              CANT. 1
-            </span>
-
-            <span class="product-price">
-              $179
-            </span>
-
-          </div>
-
-        </div>
-
-      </article>
-
+    <section class="pedido-title">
+      <span class="section-subtitle">EMBER GRILL & BURGERS</span>
+      <h1>Mi pedido</h1>
+      <p>Revisa tu selección antes de disfrutar nuestros sabores.</p>
     </section>
 
+    @if (productos.length > 0) {
 
-    <!-- RESUMEN -->
-    <aside class="summary">
+      <div class="pedido-layout">
 
-      <h2>RESUMEN</h2>
+        <section class="productos-pedido">
 
-      <div class="line">
-        <span>Subtotal</span>
-        <span>$328</span>
-      </div>
+          <div class="productos-header">
+            <div>
+              <span class="section-subtitle">TU SELECCIÓN</span>
+              <h2>Productos agregados</h2>
+            </div>
+            <span class="cantidad-etiqueta">
+              {{ cantidadTotal }} productos
+            </span>
+          </div>
 
-      <div class="line">
-        <span>Servicio</span>
-        <span>$0</span>
-      </div>
+          @for (producto of productos; track producto.id) {
 
-      <div class="divider"></div>
+            <article class="producto-pedido">
 
-      <div class="total">
-        <span>TOTAL</span>
-        <strong>$328</strong>
-      </div>
+              <div class="producto-informacion">
 
+                <div class="producto-detalles">
+                  <h3>{{ producto.nombre }}</h3>
 
-      <!-- TIPO DE PEDIDO -->
-      <div class="order-type">
+                  <p class="producto-precio">
+                    {{ producto.precioUnitario | currency:'MXN':'symbol':'1.2-2' }}
+                    <span>por unidad</span>
+                  </p>
 
-        <p>TIPO DE PEDIDO</p>
+                  @if (producto.ingredientes && producto.ingredientes.length > 0) {
+                    <div class="detalle-personalizacion">
+                      <strong>Ingredientes</strong>
+                      <p>{{ producto.ingredientes.join(', ') }}</p>
+                    </div>
+                  }
 
-        <div class="type-options">
+                  @if (producto.extras && producto.extras.length > 0) {
+                    <div class="detalle-personalizacion">
+                      <strong>Extras</strong>
+                      @for (extra of producto.extras; track extra.nombre) {
+                        <p>
+                          {{ extra.nombre }}
+                          <span>
+                            (+{{ extra.precio | currency:'MXN':'symbol':'1.2-2' }})
+                          </span>
+                        </p>
+                      }
+                    </div>
+                  }
 
-          <button class="type-option active">
-            <strong>COMER AHÍ</strong>
-            <span>Disfruta tu pedido en EMBER</span>
+                  @if (producto.descripcion) {
+                    <div class="detalle-personalizacion">
+                      <strong>Instrucciones especiales</strong>
+                      <p>{{ producto.descripcion }}</p>
+                    </div>
+                  }
+                </div>
+
+                <div class="producto-importe">
+                  {{ (producto.precioUnitario * producto.cantidad) | currency:'MXN':'symbol':'1.2-2' }}
+                </div>
+
+              </div>
+
+              <div class="producto-acciones">
+
+                <div class="cantidad-control">
+                  <button
+                    type="button"
+                    (click)="cambiarCantidad(producto.id, producto.cantidad - 1)"
+                    [disabled]="producto.cantidad <= 1">
+                    −
+                  </button>
+
+                  <span>{{ producto.cantidad }}</span>
+
+                  <button
+                    type="button"
+                    (click)="cambiarCantidad(producto.id, producto.cantidad + 1)">
+                    +
+                  </button>
+                </div>
+
+                <div class="acciones-producto">
+                  <button
+                    type="button"
+                    class="editar-button"
+                    (click)="editarProducto(producto.id)">
+                    ✎ EDITAR
+                  </button>
+
+                  <button
+                    type="button"
+                    class="eliminar-button"
+                    (click)="eliminarProducto(producto.id)">
+                    ELIMINAR
+                  </button>
+                </div>
+
+              </div>
+
+            </article>
+          }
+
+        </section>
+
+        <aside class="resumen-pedido">
+
+          <span class="section-subtitle">CASI LISTO</span>
+          <h2>Resumen de compra</h2>
+
+          <div class="resumen-linea">
+            <span>Productos</span>
+            <strong>{{ cantidadTotal }}</strong>
+          </div>
+
+          <div class="resumen-linea">
+            <span>Subtotal</span>
+            <strong>{{ subtotal | currency:'MXN':'symbol':'1.2-2' }}</strong>
+          </div>
+
+          <div class="resumen-total">
+            <span>Total a pagar</span>
+            <strong>{{ subtotal | currency:'MXN':'symbol':'1.2-2' }}</strong>
+          </div>
+
+          <div class="tipo-pedido">
+            <h3>¿Cómo disfrutarás tu pedido?</h3>
+
+            <label class="tipo-opcion">
+              <input
+                type="radio"
+                name="tipoPedido"
+                value="COMER_AHI"
+                [(ngModel)]="tipoPedido">
+              <span class="tipo-icono">♨</span>
+              <span class="tipo-texto">
+                <strong>Comer aquí</strong>
+                <small>Disfruta en nuestro restaurante</small>
+              </span>
+            </label>
+
+            <label class="tipo-opcion">
+              <input
+                type="radio"
+                name="tipoPedido"
+                value="PARA_LLEVAR"
+                [(ngModel)]="tipoPedido">
+              <span class="tipo-icono">▣</span>
+              <span class="tipo-texto">
+                <strong>Para llevar</strong>
+                <small>Tu pedido listo para recoger</small>
+              </span>
+            </label>
+          </div>
+
+          <button
+            type="button"
+            class="checkout-button"
+            (click)="confirmarPedido()">
+            CONFIRMAR PEDIDO
+            <span>→</span>
           </button>
 
-          <button class="type-option">
-            <strong>RECOGER</strong>
-            <span>Recoge tu pedido en sucursal</span>
-          </button>
+          <a routerLink="/menu" class="seguir-comprando">
+            ← Seguir comprando
+          </a>
 
-        </div>
+          <p class="pedido-seguro">
+            Gracias por elegir EMBER Grill & Burgers
+          </p>
+
+        </aside>
 
       </div>
 
+    } @else {
 
-      <button class="confirm-button">
-        CONFIRMAR PEDIDO
-      </button>
+      <section class="carrito-vacio">
+        <div class="carrito-icono">🛒</div>
+        <span class="section-subtitle">EMBER GRILL & BURGERS</span>
+        <h2>Tu carrito está vacío</h2>
+        <p>
+          Todavía no has agregado productos.
+          Explora nuestro menú y encuentra algo delicioso.
+        </p>
+        <a routerLink="/menu" class="checkout-button">
+          EXPLORAR MENÚ →
+        </a>
+      </section>
 
-    </aside>
+    }
 
   </main>
-
 </div>
+
+@if (pedidoConfirmado) {
+  <div class="confirmacion-overlay">
+
+    <section class="confirmacion-modal">
+
+      <div class="confirmacion-decoracion"></div>
+
+      <div class="confirmacion-contenido">
+
+        <div class="confirmacion-icono">
+          ✓
+        </div>
+
+        <span class="section-subtitle">EMBER GRILL & BURGERS</span>
+        <h2>¡Pedido confirmado!</h2>
+        <p class="confirmacion-mensaje">
+          Tu pedido se ha registrado correctamente.
+        </p>
+
+        <div class="orden-numero">
+          <span>NÚMERO DE ORDEN</span>
+          <strong>{{ pedidoConfirmado.numero }}</strong>
+        </div>
+
+        <div class="confirmacion-datos">
+          <div>
+            <span>Tipo de pedido</span>
+            <strong>{{ pedidoConfirmado.tipo }}</strong>
+          </div>
+          <div>
+            <span>Cantidad de productos</span>
+            <strong>{{ pedidoConfirmado.cantidad }}</strong>
+          </div>
+        </div>
+
+        <div class="confirmacion-productos">
+          <h3>Detalle de tu pedido</h3>
+
+          @for (producto of pedidoConfirmado.productos; track $index) {
+            <article class="confirmacion-producto">
+
+              <div class="confirmacion-producto-cabecera">
+                <strong>{{ producto.nombre }}</strong>
+                <span>{{ producto.importe | currency:'MXN':'symbol':'1.2-2' }}</span>
+              </div>
+
+              <p>Cantidad: {{ producto.cantidad }}</p>
+
+              @if (producto.ingredientes.length > 0) {
+                <p>
+                  <strong>Ingredientes:</strong>
+                  {{ producto.ingredientes.join(', ') }}
+                </p>
+              }
+
+              @if (producto.extras.length > 0) {
+                <p>
+                  <strong>Extras:</strong>
+                  @for (extra of producto.extras; track extra.nombre; let last = $last) {
+                    {{ extra.nombre }} (+{{ extra.precio | currency:'MXN':'symbol':'1.2-2' }}){{ last ? '' : ', ' }}
+                  }
+                </p>
+              }
+
+              @if (producto.instrucciones) {
+                <p>
+                  <strong>Instrucciones:</strong>
+                  {{ producto.instrucciones }}
+                </p>
+              }
+
+            </article>
+          }
+        </div>
+
+        <div class="confirmacion-total">
+          <span>TOTAL A PAGAR</span>
+          <strong>
+            {{ pedidoConfirmado.total | currency:'MXN':'symbol':'1.2-2' }}
+          </strong>
+        </div>
+
+        <p class="confirmacion-gracias">
+          ¡Gracias por tu compra! Esperamos verte pronto.
+        </p>
+
+        <button
+          type="button"
+          class="confirmacion-boton"
+          (click)="cerrarConfirmacion()">
+          FINALIZAR Y VOLVER AL MENÚ
+          <span>→</span>
+        </button>
+
+      </div>
+    </section>
+
+  </div>
+}

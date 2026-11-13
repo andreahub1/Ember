@@ -1,414 +1,718 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
-
-
-/* =========================
-   GENERAL
-========================= */
-
 :host {
   display: block;
   min-height: 100vh;
   background: #0B0B0B;
+  color: #F5EBCD;
+  font-family: 'Montserrat', sans-serif;
 }
 
 * {
   box-sizing: border-box;
 }
 
+/* PÁGINA PRINCIPAL */
+
 .menu-page {
+  width: 100%;
   min-height: 100vh;
-  padding: 30px 6% 60px;
-
+  padding-bottom: 55px;
   background: #0B0B0B;
-
-  color: #F5EBCD;
-
-  font-family: 'Montserrat', sans-serif;
 }
 
-
-/* =========================
-   HEADER
-========================= */
+/* ENCABEZADO */
 
 .menu-header {
+  position: relative;
+  min-height: 110px;
+  width: 100%;
+  padding: 15px 7%;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-
-  padding-bottom: 25px;
-
-  border-bottom: 1px solid #2E2E2E;
+  justify-content: flex-end;
+  background: #0B0B0B;
+  border-bottom: 1px solid #D4AF37;
 }
 
-.brand {
+.menu-header .brand {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
+  text-decoration: none;
 }
 
-.brand-name {
-  font-family: 'Playfair Display', serif;
-
-  font-size: 30px;
-
-  letter-spacing: 6px;
-
+.menu-header .brand-name {
   color: #D4AF37;
+  font-family: 'Playfair Display', serif;
+  font-size: 42px;
+  font-weight: 700;
+  letter-spacing: 8px;
+  line-height: 1.1;
 }
 
-.brand-subtitle {
-  margin-top: 3px;
-
-  font-size: 8px;
-
-  letter-spacing: 3px;
-
+.menu-header .brand-subtitle {
   color: #F5EBCD;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 5px;
+  margin-top: 5px;
 }
+
+/* BOTÓN MI PEDIDO */
 
 .order-button {
-  padding: 11px 20px;
-
-  background: transparent;
-
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 12px 20px;
+  color: #D4AF37 !important;
+  background: #151515;
   border: 1px solid #D4AF37;
-
-  color: #D4AF37;
-
-  font-family: 'Montserrat', sans-serif;
-
-  font-size: 9px;
-
-  font-weight: 600;
-
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 800;
   letter-spacing: 1.5px;
+  text-decoration: none !important;
+  transition: all 0.3s ease;
+}
 
-  cursor: pointer;
+.order-icon {
+  font-size: 17px;
+}
 
-  transition: 0.3s;
+.order-count {
+  color: #F5EBCD;
 }
 
 .order-button:hover {
   background: #D4AF37;
+  color: #0B0B0B !important;
+  transform: translateY(-2px);
+}
+
+.order-button:hover .order-count {
   color: #0B0B0B;
 }
 
+/* MENSAJE DEL CARRITO */
 
-/* =========================
-   TITULO
-========================= */
-
-.menu-title {
-  text-align: center;
-
-  max-width: 650px;
-
-  margin: 65px auto 50px;
+.cart-message {
+  width: min(1180px, 90%);
+  margin: 20px auto;
+  padding: 14px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  background: #151515;
+  border: 1px solid #D4AF37;
+  color: #F5EBCD;
+  font-size: 12px;
 }
 
-.small-title {
-  margin: 0 0 12px;
-
-  font-size: 10px;
-
-  font-weight: 600;
-
-  letter-spacing: 4px;
-
+.cart-message button {
+  background: transparent;
+  border: none;
   color: #D4AF37;
+  font-size: 23px;
+  cursor: pointer;
+}
+
+/* TÍTULO */
+
+.menu-title {
+  width: min(900px, 90%);
+  margin: 55px auto 35px;
+  text-align: center;
+}
+
+.menu-title .small-title {
+  color: #D4AF37;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  margin-bottom: 13px;
 }
 
 .menu-title h1 {
-  margin: 0;
-
-  font-family: 'Playfair Display', serif;
-
-  font-size: 45px;
-
-  font-weight: 500;
-
-  letter-spacing: 2px;
-
   color: #F5EBCD;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(35px, 5vw, 55px);
+  letter-spacing: 2px;
+  margin: 0;
 }
 
 .menu-title h1 span {
   color: #D4AF37;
 }
 
-.description {
-  max-width: 520px;
-
-  margin: 18px auto 0;
-
+.menu-title .description {
+  max-width: 580px;
+  margin: 15px auto 0;
+  color: #BDB6A7;
   font-size: 12px;
-
   line-height: 1.8;
-
-  color: #999;
 }
 
+/* BUSCADOR Y CATEGORÍAS */
 
-/* =========================
-   HAMBURGUESAS
-========================= */
+.menu-tools {
+  width: min(1100px, 90%);
+  margin: 0 auto 35px;
+}
+
+.menu-tools > input {
+  width: 100%;
+  max-width: 550px;
+  display: block;
+  margin: 0 auto;
+  padding: 14px 18px;
+  background: #151515;
+  border: 1px solid #48412F;
+  border-radius: 3px;
+  color: #F5EBCD;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.menu-tools > input:focus {
+  border-color: #D4AF37;
+}
+
+.menu-tools > input::placeholder {
+  color: #928B7D;
+}
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.categories button {
+  padding: 10px 16px;
+  background: transparent;
+  border: 1px solid #48412F;
+  border-radius: 3px;
+  color: #F5EBCD;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  transition: all 0.25s;
+}
+
+.categories button.active,
+.categories button:hover {
+  background: #D4AF37;
+  border-color: #D4AF37;
+  color: #0B0B0B;
+}
+
+/* TARJETAS DE PRODUCTOS */
 
 .burgers {
-  max-width: 1100px;
-
-  margin: 0 auto;
-
+  width: min(1180px, 90%);
+  margin: 35px auto 50px;
   display: grid;
-
-  grid-template-columns: repeat(2, 1fr);
-
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 25px;
+  align-items: stretch;
 }
 
-
-/* =========================
-   CARD
-========================= */
-
 .burger-card {
+  min-width: 0;
   display: flex;
-
-  min-height: 250px;
-
+  flex-direction: column;
+  overflow: hidden;
   background: #151515;
-
   border: 1px solid #292929;
-
-  transition: 0.3s;
+  border-radius: 4px;
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 
 .burger-card:hover {
   border-color: #D4AF37;
-
-  transform: translateY(-3px);
+  transform: translateY(-4px);
+  box-shadow: 0 9px 25px rgba(212, 175, 55, 0.09);
 }
 
-
-/* =========================
-   IMAGEN
-========================= */
+/* IMÁGENES DE PRODUCTOS */
 
 .burger-image {
-  width: 45%;
-
+  width: 100%;
+  height: 220px;
+  padding: 15px;
   display: flex;
-
-  align-items: center;
   justify-content: center;
-
+  align-items: center;
   overflow: hidden;
-
   background: #101010;
+  border-bottom: 1px solid #292929;
 }
 
 .burger-image img {
+  display: block;
   width: 100%;
   height: 100%;
-
-  object-fit: cover;
-
-  display: block;
+  object-fit: contain;
+  object-position: center;
+  transition: transform 0.35s ease;
 }
 
+.burger-card:hover .burger-image img {
+  transform: scale(1.04);
+}
 
-/* =========================
-   INFORMACIÓN
-========================= */
+/* INFORMACIÓN DE PRODUCTOS */
 
 .burger-info {
-  width: 55%;
-
-  padding: 25px 22px;
-
+  flex: 1;
+  min-width: 0;
+  padding: 21px;
   display: flex;
   flex-direction: column;
 }
 
-.category {
-  margin: 0 0 8px;
-
-  font-size: 8px;
-
-  font-weight: 600;
-
-  letter-spacing: 3px;
-
+.burger-info .category {
   color: #D4AF37;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin: 0 0 8px;
+  text-transform: uppercase;
 }
 
 .burger-info h2 {
-  margin: 0;
-
-  font-family: 'Playfair Display', serif;
-
-  font-size: 21px;
-
-  font-weight: 600;
-
-  letter-spacing: 1px;
-
+  margin: 0 0 11px;
   color: #F5EBCD;
+  font-family: 'Playfair Display', serif;
+  font-size: 21px;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
 }
 
 .burger-description {
-  margin: 12px 0;
-
-  font-size: 10px;
-
-  line-height: 1.7;
-
-  color: #999;
+  color: #C8C2B5;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  line-height: 1.8;
+  margin: 0;
 }
 
 .burger-bottom {
   margin-top: auto;
-
+  padding-top: 20px;
   display: flex;
-
-  align-items: center;
-
   justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .price {
-  font-family: 'Playfair Display', serif;
-
-  font-size: 20px;
-
   color: #D4AF37;
+  font-family: 'Playfair Display', serif;
+  font-size: 23px;
+  font-weight: 600;
 }
 
+/* BOTONES */
+
 .add-button {
-  padding: 9px 14px;
-
+  padding: 12px 15px;
   background: #D4AF37;
-
   border: 1px solid #D4AF37;
-
+  border-radius: 3px;
   color: #0B0B0B;
-
   font-family: 'Montserrat', sans-serif;
-
-  font-size: 8px;
-
-  font-weight: 700;
-
-  letter-spacing: 1.5px;
-
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
   cursor: pointer;
-
   transition: 0.3s;
 }
 
 .add-button:hover {
   background: transparent;
-
   color: #D4AF37;
 }
 
-
-/* =========================
-   VOLVER
-========================= */
-
-.back-section {
-  text-align: center;
-
-  margin-top: 50px;
+.add-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
-.back-button {
+.empty-products {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #B8B2A5;
+  padding: 40px 20px;
+  border: 1px solid #38342C;
+  background: #151515;
+}
+
+/* VOLVER AL INICIO */
+
+.back-section {
+  display: flex;
+  justify-content: center;
+  margin: 45px auto 10px;
+}
+
+.back-section .back-button {
+  padding: 13px 24px;
+  border: 1px solid #D4AF37;
   background: transparent;
-
-  border: none;
-
-  color: #777;
-
+  color: #D4AF37;
   font-family: 'Montserrat', sans-serif;
-
-  font-size: 9px;
-
-  letter-spacing: 2px;
-
-  cursor: pointer;
-
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-decoration: none;
   transition: 0.3s;
 }
 
-.back-button:hover {
-  color: #D4AF37;
+.back-section .back-button:hover {
+  background: #D4AF37;
+  color: #0B0B0B;
 }
 
+/* FONDO DEL MODAL */
 
-/* =========================
-   CELULAR
-========================= */
+.custom-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
 
-@media (max-width: 700px) {
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(5px);
 
-  .menu-page {
-    padding: 25px 20px 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 12px;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+/* VENTANA DEL MODAL */
+
+.custom-modal {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  max-height: calc(100dvh - 24px);
+
+  padding: 30px;
+
+  background: #151515;
+  border: 1px solid #D4AF37;
+  border-radius: 4px;
+  color: #F5EBCD;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+
+  box-sizing: border-box;
+
+  scrollbar-width: thin;
+  scrollbar-color: #D4AF37 #151515;
+}
+
+/* BARRA DE SCROLL DEL MODAL */
+
+.custom-modal::-webkit-scrollbar {
+  width: 7px;
+}
+
+.custom-modal::-webkit-scrollbar-track {
+  background: #151515;
+}
+
+.custom-modal::-webkit-scrollbar-thumb {
+  background: #D4AF37;
+  border-radius: 10px;
+}
+
+/* CONTENIDO DEL MODAL */
+
+.custom-modal h2 {
+  color: #F5EBCD;
+  font-family: 'Playfair Display', serif;
+  font-size: 27px;
+  padding-right: 25px;
+}
+
+.custom-modal > .category {
+  color: #D4AF37;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.custom-modal .burger-description {
+  color: #BDB6A7;
+}
+
+.close-modal {
+  position: absolute;
+  right: 18px;
+  top: 13px;
+  width: 35px;
+  height: 35px;
+  background: transparent;
+  border: none;
+  color: #D4AF37;
+  font-size: 27px;
+  cursor: pointer;
+}
+
+.close-modal:hover {
+  color: #F5EBCD;
+}
+
+.custom-price {
+  color: #D4AF37;
+  font-size: 24px;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  margin: 18px 0;
+}
+
+/* SECCIONES DE PERSONALIZACIÓN */
+
+.custom-section {
+  margin-top: 25px;
+  padding-top: 18px;
+  border-top: 1px solid #38342C;
+}
+
+.custom-section h3 {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #D4AF37;
+  margin: 0 0 15px;
+}
+
+.custom-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 13px;
+  font-size: 12px;
+  color: #F5EBCD;
+  line-height: 1.5;
+}
+
+.custom-option input {
+  width: 16px;
+  height: 16px;
+  accent-color: #D4AF37;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.custom-option span {
+  margin-left: auto;
+  color: #D4AF37;
+  white-space: nowrap;
+}
+
+/* SELECT Y TEXTAREA */
+
+.custom-modal select,
+.custom-modal textarea {
+  width: 100%;
+  padding: 12px;
+  background: #0B0B0B;
+  border: 1px solid #48412F;
+  border-radius: 3px;
+  color: #F5EBCD;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  outline: none;
+  resize: vertical;
+}
+
+.custom-modal select:focus,
+.custom-modal textarea:focus {
+  border-color: #D4AF37;
+}
+
+.custom-modal textarea::placeholder {
+  color: #928B7D;
+}
+
+/* CONTROL DE CANTIDAD */
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.quantity-control button {
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  border: 1px solid #D4AF37;
+  border-radius: 3px;
+  color: #D4AF37;
+  cursor: pointer;
+  font-size: 20px;
+  transition: 0.2s;
+}
+
+.quantity-control button:hover {
+  background: #D4AF37;
+  color: #0B0B0B;
+}
+
+.quantity-control span {
+  color: #F5EBCD;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* BOTÓN AGREGAR AL PEDIDO */
+
+.modal-add {
+  width: 100%;
+  margin-top: 25px;
+  min-height: 48px;
+}
+
+/* TABLET */
+
+@media (max-width: 950px) {
+  .burgers {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+}
+
+/* CELULAR */
+
+@media (max-width: 600px) {
+  .menu-header {
+    min-height: 90px;
+    padding: 12px 4%;
   }
 
-
-  .brand-name {
-    font-size: 25px;
+  .menu-header .brand-name {
+    font-size: 27px;
+    letter-spacing: 5px;
   }
 
+  .menu-header .brand-subtitle {
+    font-size: 7px;
+    letter-spacing: 3px;
+  }
 
-  .order-button {
-    padding: 9px 13px;
+  .menu-header .order-button {
+    padding: 9px 10px;
+    gap: 5px;
+    font-size: 8px;
+    letter-spacing: 0.5px;
+  }
 
+  .order-icon {
+    font-size: 13px;
+  }
+
+  .menu-title {
+    margin: 40px auto 28px;
+  }
+
+  .menu-title h1 {
+    font-size: 36px;
+  }
+
+  .menu-title .description {
+    font-size: 11px;
+  }
+
+  .menu-tools {
+    width: 92%;
+  }
+
+  .categories {
+    gap: 7px;
+  }
+
+  .categories button {
+    padding: 9px 10px;
     font-size: 8px;
   }
 
-
-  .menu-title {
-    margin: 50px auto 35px;
-  }
-
-
-  .menu-title h1 {
-    font-size: 34px;
-  }
-
-
-  .description {
-    font-size: 10px;
-  }
-
-
   .burgers {
+    width: 92%;
     grid-template-columns: 1fr;
-
-    gap: 18px;
+    max-width: 430px;
+    gap: 20px;
   }
-
-
-  .burger-card {
-    min-height: 220px;
-  }
-
 
   .burger-image {
-    width: 42%;
+    height: 220px;
   }
-
 
   .burger-info {
-    width: 58%;
-
-    padding: 20px 16px;
+    padding: 18px;
   }
-
 
   .burger-info h2 {
-    font-size: 18px;
+    font-size: 20px;
   }
 
+  .burger-bottom {
+    align-items: center;
+  }
+
+  .cart-message {
+    width: 92%;
+  }
+
+  .custom-overlay {
+    padding: 12px;
+  }
+
+  .custom-modal {
+    padding: 25px 18px;
+    max-height: calc(100dvh - 24px);
+  }
+
+  .custom-modal h2 {
+    font-size: 23px;
+  }
+}
+
+/* REDUCIR ANIMACIONES SI EL DISPOSITIVO LO SOLICITA */
+
+@media (prefers-reduced-motion: reduce) {
+  .burger-card,
+  .burger-image img,
+  .add-button,
+  .order-button {
+    transition: none;
+  }
 }
